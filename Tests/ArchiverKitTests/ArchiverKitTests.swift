@@ -1,7 +1,7 @@
 import XCTest
-@testable import Archiver
+@testable import ArchiverKit
 
-final class ArchiverTests: XCTestCase {
+final class ArchiverKitTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest

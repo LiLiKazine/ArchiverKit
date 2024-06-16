@@ -24,6 +24,8 @@ public extension Archiver {
     
         try store(data, to: url)
         
+        debugPrint("Data(\(data.count)) of name(\(name)) stored at \(url)")
+        
         return path
     }
     

@@ -15,7 +15,7 @@ extension ArchiverWrapper where Base == Data {
 }
 
 extension Data {
-    public init(from relativePath: String, directory: FileManager.SearchPathDirectory = .documentDirectory) throws {
-        self = try Archiver.shared.fetch(from: relativePath, directory: directory)
+    public init(from path: String, relativeTo directory: FileManager.SearchPathDirectory = .documentDirectory) throws {
+        self = try Archiver.shared.fetch(from: path, relativeTo: directory)
     }
 }

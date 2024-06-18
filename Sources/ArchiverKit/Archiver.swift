@@ -13,6 +13,13 @@ public class Archiver {
 }
 
 public extension Archiver {
+    func delete(at path: String, relativeTo directory: FileManager.SearchPathDirectory = .documentDirectory) throws {
+        let url = try savingURL(of: path, relativeTo: directory)
+        try FileManager.default.removeItem(at: url)
+    }
+}
+
+public extension Archiver {
     
     func store(_ data: Data, name: String, suffix: String? = nil, directory: FileManager.SearchPathDirectory = .documentDirectory) throws -> String {
         
@@ -34,9 +41,8 @@ public extension Archiver {
         try data.write(to: url, options: .withoutOverwriting)
     }
     
-    func fetch(from relativePath: String, directory: FileManager.SearchPathDirectory = .documentDirectory) throws -> Data {
-        var url = try directory.prefferredDirectory()
-        url.append(path: relativePath)
+    func fetch(from path: String, relativeTo directory: FileManager.SearchPathDirectory = .documentDirectory) throws -> Data {
+        let url = try savingURL(of: path, relativeTo: directory)
         return try Data(contentsOf: url)
     }
     
@@ -46,6 +52,9 @@ public extension Archiver {
         return url
     }
     
+}
+
+private extension Archiver {
     func savingPath(of filename: String, suffix: String?, relativeTo dir: URL) -> String {
         let filename = filename.replacingOccurrences(of: "/", with: "-")
         let intermediaDirectory = Date().ak.text()
@@ -68,7 +77,6 @@ public extension Archiver {
         
         return components[(components.count - 2)...].joined(separator: "/")
     }
-    
 }
 
 private extension FileManager.SearchPathDirectory {
